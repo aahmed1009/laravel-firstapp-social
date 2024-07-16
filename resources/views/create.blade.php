@@ -14,7 +14,7 @@
   </div>
   @endif
 
-  <form action="{{ route('posts.store') }}" method="POST">
+  <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
       <label for="title">Title</label>
@@ -37,6 +37,14 @@
       <input type="text" class="form-control @error('author') is-invalid @enderror" id="author" name="author"
         value="{{ old('author') }}">
       @error('author')
+      <div class="invalid-feedback">{{ $message }}</div>
+      @enderror
+    </div>
+    <div class="form-group">
+      <label for="images">Image</label>
+      <input type="file" class="form-control @error('images') is-invalid @enderror" id="images" name="images"
+        value="{{ old('images') }}">
+      @error('images')
       <div class="invalid-feedback">{{ $message }}</div>
       @enderror
     </div>

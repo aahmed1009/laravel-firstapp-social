@@ -14,6 +14,11 @@
           <h5 class="mb-0">{{ $post->title }}</h5>
         </div>
         <div class="card-body">
+          @if($post->images)
+          <div class="image-container mb-3">
+            <img src="{{ asset('storage/' . $post->images) }}" alt="{{ $post->title }}" class="img-fluid">
+          </div>
+          @endif
           <p class="card-text">{{ Str::limit($post->body, 150, '...') }}</p>
           <div class="d-flex justify-content-between align-items-center">
             <div>

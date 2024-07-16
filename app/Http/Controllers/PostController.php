@@ -42,19 +42,25 @@ class PostController extends Controller
     {
         //
 
-        // dd($request->all());
+    //    dd($request->all());
         $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required|string',
             'author' => 'required|string|max:255',
+            'images'=>'nullable|image|max:2048' //2mb per image
         ]);
-
+        $imagePath = null;
+        if($request->hasFile('images')){
+            $imagePath = $request->file('images')->store('posts','public');
+        }
         Post::create([
             'title' => $request->title,
             'body' => $request->body,
             'author' => $request->author,
+            'user_id' => Auth::id(),
+            'images' => $imagePath
+          
         ]);
-
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
 

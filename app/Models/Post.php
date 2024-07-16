@@ -12,7 +12,7 @@ class Post extends Model
     use SoftDeletes;
     protected $table = 'posts'; 
 
-    protected $fillable = ['title', 'body', 'author']; 
+    protected $fillable = ['title', 'body', 'author', 'images' ]; 
 
     public function user() 
     {
