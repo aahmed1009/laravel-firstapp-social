@@ -31,6 +31,7 @@ Route::get('AgeRoute', function() {
 Route::resource('User',UserControllerResource::class);
 Auth::routes();
 Route::resource('posts', PostController::class);
+Route::patch('posts/{id}/restore', [PostController::class, 'restore'])->name('posts.restore');
 Route::resource('posts.comments', CommentController::class)->shallow();
 
 

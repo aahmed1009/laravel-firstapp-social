@@ -14,6 +14,7 @@
           <h5 class="mb-0">{{ $post->title }}</h5>
         </div>
         <div class="card-body">
+
           @if($post->images)
           <div class="image-container mb-3">
             <img src="{{ asset('storage/' . $post->images) }}" alt="{{ $post->title }}" class="img-fluid">
@@ -23,11 +24,19 @@
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-warning">Edit</a>
+              @if($post->trashed())
+              <form action="{{ route('posts.restore', $post->id) }}" method="POST" class="d-inline-block">
+                @csrf
+                @method('PATCH')
+                <button type="submit" class="btn btn-sm btn-success">Restore</button>
+              </form>
+              @else
               <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline-block">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-sm btn-danger">Delete</button>
               </form>
+              @endif
             </div>
             <small class="text-muted">Posted by {{ $post->author }} on {{ $post->created_at->format('M d, Y') }}</small>
           </div>
